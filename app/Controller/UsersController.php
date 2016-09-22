@@ -6,14 +6,29 @@ class UsersController extends AppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('add', 'index');
+		$this->Auth->allow('index');
+		$this->Auth->authorize = 'Controller';
 	}
+	// 管理者権限
+	public function isAuthorized($user) {
+		if ($this->Auth->user('role') == 'admin') {
+			//admin権限を持つユーザは全てのページにアクセスできる
+			return true;
+		} elseif ($this->Auth->user('role') == 'member') {
+			if (in_array($this->action, array('userlist', 'view'))) {
+				//user権限を持つユーザ指定したアクションにアクセスできる
+				return true;
+			}
+		}
+		return false;
+	}
+	// ログイン画面
 	public function login() {
 		if ($this->request->is('post')) {
 			if ($this->Auth->login()) {
 				$this->redirect($this->Auth->redirect());
 			} else {
-				$this->Flash->error(__('Invalid username or password, try again'));
+				$this->Flash->error('Invalid username or password, try again');
 			}
 		}
 	}
@@ -22,20 +37,23 @@ class UsersController extends AppController {
 		$this->redirect($this->Auth->logout());
 	}
 
-	public function index() {
+	public function userlist() {
 		// postかつ権限が管理者のとき、指定したIDでviewを呼び出し
 		if ($this->request->is('post') && $this->User->getRole($this->Auth->user('id')) === 'admin') {
+			// 指定したIDでViewへリダイレクト
 			if (isset($this->request->data['User']['id'])) {
 				$this->redirect(array('action' => 'view', $this->request->data['User']['id']));
 			}
 		} else {
-			$data = $this->User->find('all' array(
+			// Userデータを取得
+			$data = $this->User->find('all', array(
 					'fields' => array(
 						'User.id',
-						'User.name',
+						'User.username',
+						'User.role'
 					) 
 			));
-			$this->set('users', $data['User']);
+			$this->set('users', $data);
 			$this->set('userId', $this->Auth->user('id'));
 		}
 	}
