@@ -32,8 +32,8 @@ class ApiIsbnController extends AppController {
 			curl_setopt_array($ch, $options);
 			$response =curl_exec($ch) ;// 第2引数をtrueにすると連想配列で返ってくる
 			curl_close($ch);
-			// レスポンスが空のとき、エラーとする
-			if (preg_match('/REPOSITORY_NO/', $response) === 1) {
+			// レスポンスが空又は検索に失敗したとき、エラーとする
+			if (empty($response) || preg_match('/srw_dc:dc/', $response) === 0) {
 				// エラー
 				$isError = true;
 				$result['message'] = "該当する書籍は存在しません";
