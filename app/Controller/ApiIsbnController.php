@@ -32,7 +32,6 @@ class ApiIsbnController extends AppController {
 			curl_setopt_array($ch, $options);
 			$response =curl_exec($ch) ;// 第2引数をtrueにすると連想配列で返ってくる
 			curl_close($ch);
-			var_dump($response);
 			// レスポンスが空のとき、エラーとする
 			if (preg_match('/REPOSITORY_NO/', $response) === 1) {
 				// エラー
@@ -57,18 +56,8 @@ class ApiIsbnController extends AppController {
 			'result' => $result,
 			'_serialize' => array('result')
 		));
-		//return $response;
 	}
-	/*
-	public function edit($id = null){
-		// Controller アクションへのリダイレクト
-		return $this->redirect(
-			array('controller' => 'orders', 'action' => 'thanks')
-		);
-		
 
-	}
-	*/
 
 	// 渡したtextの中から指定した属性の要素を取得。失敗したらnullを返す
 	private function __getElement($text, $attr) {
