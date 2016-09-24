@@ -17,48 +17,20 @@
 </head>
 <body>
 	<h1></h1>
-	<h2>ユーザーを新規登録</h2>
+	<h2>ユーザーログイン</h2>
 		<div class="row">
 			<form class="col s12" method="post" name="User" id='user'>
 			<div class="row">
 				<div class="input-field col s6">
 					<input  id="user_name" type="text" class="validate" name="data[User][username]">
 					<label for="user_name">USER NAME</label>
-					<ul>
-						<?php if (isset($validation['username'])) :
-								foreach ($validation['username'] as $error) : ?>
-								<li> <?php echo $error?> </li>
-						<?php	endforeach; 
-						endif; ?>
-					</ul>
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s6">
 					<input id="user_password" type="password" class="validate" name="data[User][password]">
 					<label for="user_password">PASSWORD</label>
-					<ul>
-							<?php if (isset($validation['password'])) :
-									foreach ($validation['password'] as $error) : ?>
-									<li> <?php echo $error?> </li>
-							<?php	endforeach; 
-							endif; ?>
-					</ul>
 				</div>
-			</div>
-			<div class="input-field col s6">
-				<select name="data[User][role]">
-					<option value="member" selected>メンバー</option>
-					<option value="admin">管理者</option>
-				</select>
-				<label>ROLE</label>
-				<ul>
-					<?php if (isset($validation['role'])) :
-							foreach ($validation['role'] as $error) : ?>
-							<li> <?php echo $error?> </li>
-					<?php	endforeach; 
-					endif; ?>
-				</ul>
 			</div>
 			</form>
 			<button class="btn waves-effect waves-light" type="submit" name="User" form='user'>Submit
