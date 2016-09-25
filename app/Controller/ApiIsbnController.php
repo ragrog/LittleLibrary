@@ -40,13 +40,13 @@ class ApiIsbnController extends AppController {
 			} else {
 				$result = [];
 				$result['title'] = $this->__getElement($response, 'title');
-				$result['creator'] = $this->__getElement($response, 'creator');
+				$result['author'] = $this->__getElement($response, 'creator');
 				$result['publisher'] = $this->__getElement($response, 'publisher');
 			}
 		}
 		if ($isError === true) {
 			$result['title'] = "";
-			$result['creator'] = "";
+			$result['author'] = "";
 			$result['publisher'] = "";
 			$this->response->statusCode(400);
 		} 
