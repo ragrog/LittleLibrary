@@ -7,6 +7,8 @@ class BookController extends AppController {
 	public function index()
 	{
 
+		$data = $this->BookInfo->getRentalBooks();
+		$this->set('data', $data);
 	}
 
 	public function add(){
