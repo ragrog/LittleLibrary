@@ -151,5 +151,18 @@ class BookInfo extends AppModel {
 		$data['BookInfo']['publication_date'] = date('Y/m/d', strtotime($data['BookInfo']['publication_date']));
 		return $data;
 	}
+	public function getRentalBooks() {
+		return $this->find('all', array(
+			'conditions' => array(
+				'NOT' => array('BookInfo.publication_date' => null)
+			),
+			'fields' => array(
+				'BookInfo.id',
+				'BookInfo.title',
+				'BookInfo.publisher',
+				'thumbnail_name'
+			)
+		));
+	}
 
 }
