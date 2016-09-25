@@ -34,7 +34,9 @@
 		<h2><?php echo $data['BookInfo']['count'];?></h2>
 		<h2><?php echo $data['BookInfo']['isbn'];?></h2>
 	<div class="row">
-		<a class="waves-effect waves-light btn"><i class="material-icons left">library_books</i>借りる</a>
+		<?php if ($avaiableRent) : ?>
+			<a class="waves-effect waves-light btn"><i class="material-icons left">library_books</i>借りる</a>
+		<?php endif;?>
 		<a class="waves-effect waves-light btn"><i class="material-icons left">comment</i>レビューを書く</a>
 	</div>
 	<div class="row">
