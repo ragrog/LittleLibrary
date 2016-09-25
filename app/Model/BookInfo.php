@@ -164,5 +164,19 @@ class BookInfo extends AppModel {
 			)
 		));
 	}
-
+	// 本の総数を返す
+	public function getBookTotal($id) {
+		$data = $this->find('count', array(
+			'conditions' => array(
+				'BookInfo.id' => $id
+			),
+			'fields' => array(
+				'BookInfo.count'
+			)
+		));
+		if (empty($data)) {
+			return false;
+		} 
+		return $data['BookInfo']['count'];
+	}
 }
