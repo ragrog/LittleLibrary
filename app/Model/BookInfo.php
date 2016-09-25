@@ -44,7 +44,6 @@ class BookInfo extends AppModel {
 					array('gif', 'jpeg', 'png', 'jpg')
 				),
 				'message' => '有効な画像ファイルを指定してください',
-				'required' => 'create'
 			)
 		),
 		'count' => array(
