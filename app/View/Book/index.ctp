@@ -12,17 +12,20 @@
 <body>
 	
 	<h1>本一覧</h1>
-	<div class="row">
 		<?php 
 			$rowMax = (int)(count($data) / 3);
-			for ($rowNum =  0; $rowNum < $rowMax; $rowNum ++)
-			{
+			for ($rowNum =  0; $rowNum < $rowMax; $rowNum ++) :
+		?>
+		<div class="row">
+				<?php
 				for ($columnNum = 0; $columnNum < 3; $columnNum ++) {
 					$index = $rowNum * 3 + $columnNum;
 					  echo $this->element('BookCard', array('data' => $data[(int)($index)]));
 				}
-			}
+				?>
+		</div>
+		<?php
+			endfor;
 		?>
-	</div>
 </body>
 </html>
