@@ -146,5 +146,10 @@ class BookInfo extends AppModel {
 		$result = $this->find('all');
 		return $result;
 	}
+	public function findById($id) {
+		$data = parent::findById($id);
+		$data['BookInfo']['publication_date'] = date('Y/m/d', strtotime($data['BookInfo']['publication_date']));
+		return $data;
+	}
 
 }
