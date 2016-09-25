@@ -30,11 +30,12 @@
 	<img class="materialboxed" width="200" src="/img/book_thumbnail/<?php echo $data['BookInfo']['thumbnail_name']?>">
 		<h2><?php echo $data['BookInfo']['author'];?></h2>
 		<h2><?php echo $data['BookInfo']['publisher'];?></h2>
+		<h2><?php echo $data['BookInfo']['publication_date'];?></h2>
 		<h2><?php echo $data['BookInfo']['count'];?></h2>
 		<h2><?php echo $data['BookInfo']['isbn'];?></h2>
 	<div class="row">
 		<a class="waves-effect waves-light btn"><i class="material-icons left">library_books</i>借りる</a>
-		<a class="waves-effect waves-light btn"><i class="material-icons left">comment</i>レビュー</a>
+		<a class="waves-effect waves-light btn"><i class="material-icons left">comment</i>レビューを書く</a>
 	</div>
 	<div class="row">
 		<?php if ($data['role'] === 'admin') : ?>
