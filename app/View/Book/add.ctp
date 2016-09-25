@@ -12,6 +12,58 @@
 		$(document).ready(function() {
 			Materialize.updateTextFields();
 			$('select').material_select()
+			$('#search_button').on('click', function(){
+
+				function ajaxGetHtml() {
+				var url = '/apiisbn/index/?isbn=' + $('#isbn').val();
+					var jqXHR = $.ajax({
+						type: 'GET',
+						url: url,
+						dataType: 'json'
+					});
+					return jqXHR;
+				}
+					var getHtml = ajaxGetHtml();
+					getHtml.done(function(response) {
+						$('#title').val(response.result.title);
+						$('#author').val(response.result.author);
+						$('#publisher').val(response.result.publisher);
+						Materialize.updateTextFields();
+					});
+					getHtml.fail(function() {
+						alert("通信に失敗しました");
+					});
+			
+			});
+
+			 $('#image').on('change', function(e) {
+					var file = e.target.files[0],
+						reader = new FileReader(),
+						$preview = $(".preview");
+						t = this;
+
+					// 画像ファイル以外の場合は何もしない
+					if(file.type.indexOf("image") < 0){
+					return false;
+					}
+
+					// ファイル読み込みが完了した際のイベント登録
+					reader.onload = (function(file) {
+					return function(e) {
+						//既存のプレビューを削除
+						$preview.empty();
+						// .prevewの領域の中にロードした画像を表示するimageタグを追加
+						$preview.append($('<img>').attr({
+								src: e.target.result,
+								width: "150px",
+								class: "preview",
+								title: file.name
+							}));
+					};
+					})(file);
+
+					reader.readAsDataURL(file);
+				});
 		});
 	</script>
 </head>
@@ -73,7 +125,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="input-field col s6">
+				<div class="input-field col s3">
 					<input  id="isbn" type="text" class="validate" name="data[BookInfo][isbn]">
 					<label for="isbn">ISBN</label>
 					<ul>
@@ -84,11 +136,14 @@
 						endif; ?>
 					</ul>
 				</div>
+				<div class="input-field col s3">
+					<a class="waves-effect waves-light btn" id="search_button"><i class="material-icons left">search</i>button</a>
+				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s6">
-					<input  id="isbn" type="text" class="validate" name="data[BookInfo][count]">
-					<label for="isbn">冊数</label>
+					<input  id="count" type="text" value="1" class="validate" name="data[BookInfo][count]">
+					<label for="count">冊数</label>
 					<ul>
 						<?php if (isset($validation['count'])) :
 								foreach ($validation['count'] as $error) : ?>
@@ -102,7 +157,7 @@
 				<div class="file-field input-field">
 					<div class="btn">
 						<span>サムネイル</span>
-						<input type="file" name="data[BookInfo][image]">
+						<input id="image" type="file" name="data[BookInfo][image]">
 					</div>
 					<div class="file-path-wrapper">
 						<input class="file-path validate" type="text" name="">
@@ -115,6 +170,7 @@
 						endif; ?>
 					</ul>
 				</div>
+				<div class="preview" />
 			</div>
 			</form>
 			<button class="btn waves-effect waves-light" type="submit" form='book'>Submit
