@@ -166,7 +166,10 @@ class BookInfo extends AppModel {
 	}
 	// 本の総数を返す
 	public function getBookTotal($id) {
-		$data = $this->find('count', array(
+		if (!$this->exists($id)) {
+			return 0;
+		}
+		$data = $this->find('first', array(
 			'conditions' => array(
 				'BookInfo.id' => $id
 			),
@@ -174,9 +177,6 @@ class BookInfo extends AppModel {
 				'BookInfo.count'
 			)
 		));
-		if (empty($data)) {
-			return false;
-		} 
-		return $data['BookInfo']['count'];
+		return (int)$data['BookInfo']['count'];
 	}
 }

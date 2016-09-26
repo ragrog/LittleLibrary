@@ -3,7 +3,7 @@
 App::uses('AppController', 'Controller');
 
 class BookController extends AppController {
-	public $uses = array('BookInfo');
+	public $uses = array('BookInfo', 'LendInfo');
 	public function index()
 	{
 
@@ -42,6 +42,7 @@ class BookController extends AppController {
 	public function view($id) {
 		$data = $this->BookInfo->findById($id);
 		$data['role'] = $this->Auth->user('role');
+		$this->set('avaiableRent', $this->LendInfo->avaiableRentalBook($this->Auth->user('id'), $id));
 		$this->set('data', $data);
 	}
 }
