@@ -23,9 +23,6 @@
 	</script>
 </head>
 <body>
-	<pre>
-	<?php var_dump($data) ?>
-	</pre>
 	<h1><?php echo $data['BookInfo']['title'];?></h1>
 	<img class="materialboxed" width="200" src="/img/book_thumbnail/<?php echo $data['BookInfo']['thumbnail_name']?>">
 		<h2><?php echo $data['BookInfo']['author'];?></h2>
@@ -34,8 +31,10 @@
 		<h2><?php echo $data['BookInfo']['count'];?></h2>
 		<h2><?php echo $data['BookInfo']['isbn'];?></h2>
 	<div class="row">
-		<?php if ($avaiableRent) : ?>
-			<a class="waves-effect waves-light btn"><i class="material-icons left">library_books</i>借りる</a>
+		<?php if ($userRentalStatus === 'NOW_RENTAL') : ?>
+			<a class="waves-effect waves-light btn" href="/Book/returnBook/<?php echo $data['BookInfo']['id'];?>"><i class="material-icons left">library_books</i>返す</a>
+		<?php elseif ($userRentalStatus === 'CAN_RENTAL') :?>
+			<a class="waves-effect waves-light btn" href="/Book/rentalBook/<?php echo $data['BookInfo']['id'];?>"><i class="material-icons left">library_books</i>借りる</a>
 		<?php endif;?>
 		<a class="waves-effect waves-light btn"><i class="material-icons left">comment</i>レビューを書く</a>
 	</div>

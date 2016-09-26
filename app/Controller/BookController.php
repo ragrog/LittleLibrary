@@ -6,7 +6,6 @@ class BookController extends AppController {
 	public $uses = array('BookInfo', 'LendInfo');
 	public function index()
 	{
-
 		$data = $this->BookInfo->getRentalBooks();
 		$this->set('data', $data);
 	}
@@ -39,10 +38,25 @@ class BookController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
-	public function view($id) {
-		$data = $this->BookInfo->findById($id);
+	public function view($bookId) {
+		$data = $this->BookInfo->findById($bookId);
 		$data['role'] = $this->Auth->user('role');
-		$this->set('avaiableRent', $this->LendInfo->avaiableRentalBook($this->Auth->user('id'), $id));
+		// レンタル中の本の数を渡す
+		$data['BookInfo']['rentalNum'] = $this->LendInfo->getNowRentalNum($bookId);
+		// 借りれるか返すのかを渡す
+		$this->set('userRentalStatus', $this->LendInfo->userRentalStatus($this->Auth->user('id'), $bookId));
+		
 		$this->set('data', $data);
 	}
+	public function rentalBook($bookId) {
+		$userId = $this->Auth->user('id');
+		$this->LendInfo->rentalBook($userId, $bookId);
+		$this->redirect(array('action' => 'view', $bookId));
+	}
+	public function returnBook($bookId) {
+		$userId = $this->Auth->user('id');
+		$this->LendInfo->returnBook($userId, $bookId);
+		$this->redirect(array('action' => 'view', $bookId));
+	}
+
 }

@@ -111,12 +111,20 @@ class LendInfo extends AppModel {
 		return $this->avaiableRentalByUser($userId, $bookId) 
 		&& $this->avaiableRentalByNum($bookId);
 	}
+
 	// 返却
 	public function returnBook($userId, $bookId) {
+
+		// 本を借りていない場合はfalse
+		$id = $this->nowRental($userId, $bookId);
+		if ($id === false) {
+			return false;
+		} 
 		$saveData = array(
-			'user_id' => $userId,
-			'book_info_id' => $bookId,
-			'return_date' => date('Y/m/d'),
+			'id'            => $id,
+			'user_id'       => $userId,
+			'book_info_id'  => $bookId,
+			'return_date'   => date('Y/m/d'),
 			'is_revocation' => false
 		);
 		if ($this->save($saveData)) {
@@ -124,8 +132,8 @@ class LendInfo extends AppModel {
 		} else {
 			return false;
 		}
-
 	}
+	
 	public function getNowRentalNum($bookId) {
 		
 		return $this->find('count', array(
@@ -171,6 +179,32 @@ class LendInfo extends AppModel {
 		// 本の総数よりも、借りられている数が下だった場合、レンタル可能
 		if ($bookTotalNum > $bookRentalNum) {
 			return true;
+		} else {
+			return false;
+		}
+	}
+	// return "NOW_RENTAL, CANNOT_RENTAL, CAN_RENTAL"
+	public function userRentalStatus($userId, $bookId) {
+		if ($this->nowRental($userId, $bookId) !== false) {
+			return 'NOW_RENTAL';
+		} else if ($this->avaiableRentalBook($userId, $bookId)) {
+			return 'CAN_RENTAL';
+		} else {
+			return 'CANNOT_RENTAL';
+		}
+	}
+	// 現在、借りているかいないか。借りていたら、idを渡す
+	public function nowRental($userId, $bookId) {
+		$data = $this->find('first', array(
+			'conditions' => array(
+				'LendInfo.user_id' => $userId,
+				'LendInfo.book_info_id' => $bookId,
+				'LendInfo.is_revocation' => true
+			)
+		));
+
+		if (!empty($data)) {
+			return $data['LendInfo']['id'];
 		} else {
 			return false;
 		}
