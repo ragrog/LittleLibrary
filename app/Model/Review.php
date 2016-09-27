@@ -47,6 +47,10 @@ class Review extends AppModel {
 			)
 		));
 	}
+	public function getReviewAll($options = []) {
+		$options['order'][] = 'Review.modified';
+		return $this->find('all', $options);
+	}
 	public function getReviewByUserId($userId, $options = []) {
 		$options['conditions']['Review.user_id'] = $userId;
 		return $this->find('all', $options);

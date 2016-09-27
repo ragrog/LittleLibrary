@@ -5,6 +5,10 @@ App::uses('AppController', 'Controller');
 class ReviewController extends AppController {
 	public $uses = array('BookInfo', 'Review');
 
+	public function index() {
+		$data = $this->Review->getReviewAll();
+		$this->set('data', $data);
+	}
 	public function edit($bookId, $userId = null) {
 		// 管理者以外、またはuserIdがnullの場合はログインIDでuserIdを設定
 		if ($this->Auth->user('role') !== 'admin' || $userId === null ) {
