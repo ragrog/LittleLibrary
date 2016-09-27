@@ -48,11 +48,17 @@ class Review extends AppModel {
 		));
 	}
 	public function getReviewByUserId($userId, $options = []) {
-		$options['conditions'][] = 'Review.user_id' => $userId;
+		$options['conditions']['Review.user_id'] = $userId;
 		return $this->find('all', $options);
 	}
 	public function getReveiwByBookId($bookId, $options = []) {
-		$options['conditions'][] = 'Review.book_id' => $BookId;
+		$options['conditions']['Review.book_id'] = $BookId;
 		return $this->find('all', $options);
+	}
+	public function deleteReview($userId, $bookId) {
+		if (($id = $this->getReviewId($userId, $bookId)) === false) {
+			return false;
+		}
+		return $this->delete($id);
 	}
 }

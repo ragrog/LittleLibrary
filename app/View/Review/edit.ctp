@@ -33,7 +33,7 @@
 		<div class="row">
 			<div class="input-field col s6">
 				<i class="material-icons prefix">mode_edit</i>
-				<textarea id="icon_prefix2" class="materialize-textarea" name="data[Review][sentence]"><?php echo $data['Review']['sentence']; ?></textarea>
+				<textarea id="icon_prefix2" class="materialize-textarea" name="data[Review][sentence]"><?php echo ($isEdit) ? $data['Review']['sentence'] : '';?></textarea>
 				<label for="icon_prefix2">Review</label>
 			</div>
 			<ul>
@@ -47,7 +47,7 @@
 		<div class="row">
 			<div class="input-field col s6">
 				<p class="range-field">
-				<input type="range" id="test5" min="0" max="5" name="data[Review][evaluation]" value="<?php echo $data['Review']['evaluation']; ?>"/>
+				<input type="range" id="test5" min="0" max="5" name="data[Review][evaluation]" value="<?php echo ($isEdit) ? $data['Review']['evaluation'] : '';?>"/>
 				</p>
 				<div class="js_StarField">
 					<i class="material-icons js_Star">star</i>
