@@ -36,7 +36,7 @@
 		<?php elseif ($userRentalStatus === 'CAN_RENTAL') :?>
 			<a class="waves-effect waves-light btn" href="/Book/rentalBook/<?php echo $data['BookInfo']['id'];?>"><i class="material-icons left">library_books</i>借りる</a>
 		<?php endif;?>
-		<a class="waves-effect waves-light btn"><i class="material-icons left">comment</i>レビューを書く</a>
+		<a class="waves-effect waves-light btn" href="/Review/edit/<?php echo $data['BookInfo']['id'];?>"><i class="material-icons left">comment</i>レビューを書く</a>
 	</div>
 	<div class="row">
 		<?php if ($data['role'] === 'admin') : ?>
