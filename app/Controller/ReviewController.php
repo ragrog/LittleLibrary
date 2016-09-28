@@ -6,7 +6,11 @@ class ReviewController extends AppController {
 	public $uses = array('BookInfo', 'Review');
 
 	public function index() {
-		$data = $this->Review->getReviewAll();
+		$data = $this->Review->getReviewAll(array(
+			'order' => array(
+				'Review.modified DESC'
+			)
+		));
 		$this->set('data', $data);
 	}
 	public function edit($bookId, $userId = null) {
