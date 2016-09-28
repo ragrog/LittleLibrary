@@ -12,16 +12,20 @@
 	<script type="text/javascript" >
 		$(document).ready(function() {
 			$('.materialboxed').materialbox();
-			$('#test5').on('input', function(){
-				var range_num = $(this).val();
-				console.log($(this).val());
-				$('.js_Star').remove();
-				for (var i=0; i<range_num; i++) {
-					$('.js_StarField').append(
-						'<i class="material-icons js_Star">star</i>'
-					);
-				}
+			$('#starRange').on('input', function(){
+				reloadStar($(this));
 			});
+			var reloadStar = function(obj) {
+					var range_num = obj.val();
+					console.log(obj.val());
+					$('.js_Star').remove();
+					for (var i=0; i<range_num; i++) {
+						$('.js_StarField').append(
+							'<i class="material-icons js_Star">star</i>'
+						);
+					}
+			}
+			reloadStar($('#starRange'));
 		});
 	</script>
 </head>
@@ -47,7 +51,7 @@
 		<div class="row">
 			<div class="input-field col s6">
 				<p class="range-field">
-				<input type="range" id="test5" min="0" max="5" name="data[Review][evaluation]" value="<?php echo ($isEdit) ? $data['Review']['evaluation'] : '';?>"/>
+				<input type="range" id="starRange" min="0" max="5" name="data[Review][evaluation]" value="<?php echo ($isEdit) ? $data['Review']['evaluation'] : '';?>"/>
 				</p>
 				<div class="js_StarField">
 					<i class="material-icons js_Star">star</i>
