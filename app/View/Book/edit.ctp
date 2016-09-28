@@ -68,9 +68,10 @@
 	</script>
 </head>
 <body>
-	<h2>本を<?php echo $isEdit ? "編集" : "追加";?></h2>
-		<div class="row">
+	<h2><?php echo  ((isset($isPurchaseRequest) && $isPurchaseRequest === true) ? '購入申請を' : '本を')
+						. ($isEdit ? "編集" : "追加") ;?></h2>
 			<form class="col s12" method="post" name="book" id='book' enctype="multipart/form-data">
+				<!-- タイトル -->
 				<div class="row">
 					<div class="input-field col s6">
 						<input  id="title" type="text" class="validate" name="data[BookInfo][title]" value="<?php echo $isEdit ? $data['BookInfo']['title'] : ""?>">
@@ -84,101 +85,124 @@
 						</ul>
 					</div>
 				</div>
-			<div class="row">
-				<div class="input-field col s6">
-					<input  id="author" type="text" class="validate" name="data[BookInfo][author]" value="<?php echo $isEdit ? $data['BookInfo']['author'] : ""?>">
-					<label for="author">著者</label>
-					<ul>
-						<?php if (isset($validation['author'])) :
-								foreach ($validation['author'] as $error) : ?>
-								<li> <?php echo $error?> </li>
-						<?php	endforeach; 
-						endif; ?>
-					</ul>
+				<!-- 著者 -->
+				<div class="row">
+					<div class="input-field col s6">
+						<input  id="author" type="text" class="validate" name="data[BookInfo][author]" value="<?php echo $isEdit ? $data['BookInfo']['author'] : ""?>">
+						<label for="author">著者</label>
+						<ul>
+							<?php if (isset($validation['author'])) :
+									foreach ($validation['author'] as $error) : ?>
+									<li> <?php echo $error?> </li>
+							<?php	endforeach; 
+							endif; ?>
+						</ul>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s6">
-					<input  id="publisher" type="text" class="validate" name="data[BookInfo][publisher]" value="<?php echo $isEdit ? $data['BookInfo']['publisher'] : ""?>">
-					<label for="publisher">出版社</label>
-					<ul>
-						<?php if (isset($validation['publisher'])) :
-								foreach ($validation['publisher'] as $error) : ?>
-								<li> <?php echo $error?> </li>
-						<?php	endforeach; 
-						endif; ?>
-					</ul>
+				<!-- 出版社 -->
+				<div class="row">
+					<div class="input-field col s6">
+						<input  id="publisher" type="text" class="validate" name="data[BookInfo][publisher]" value="<?php echo $isEdit ? $data['BookInfo']['publisher'] : ""?>">
+						<label for="publisher">出版社</label>
+						<ul>
+							<?php if (isset($validation['publisher'])) :
+									foreach ($validation['publisher'] as $error) : ?>
+									<li> <?php echo $error?> </li>
+							<?php	endforeach; 
+							endif; ?>
+						</ul>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s6">
-					<input  id="publication_date" type="text" class="validate" name="data[BookInfo][publication_date]" value="<?php echo $isEdit ? $data['BookInfo']['publication_date'] : ""?>">
-					<label for="publication_date">出版年</label>
-					<ul>
-						<?php if (isset($validation['publication_date'])) :
-								foreach ($validation['publication_date'] as $error) : ?>
-								<li> <?php echo $error?> </li>
-						<?php	endforeach; 
-						endif; ?>
-					</ul>
+				<!-- 出版日 -->
+				<div class="row">
+					<div class="input-field col s6">
+						<input  id="publication_date" type="text" class="validate" name="data[BookInfo][publication_date]" value="<?php echo $isEdit ? $data['BookInfo']['publication_date'] : ""?>">
+						<label for="publication_date">出版年</label>
+						<ul>
+							<?php if (isset($validation['publication_date'])) :
+									foreach ($validation['publication_date'] as $error) : ?>
+									<li> <?php echo $error?> </li>
+							<?php	endforeach; 
+							endif; ?>
+						</ul>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s3">
-					<input  id="isbn" type="text" class="validate" name="data[BookInfo][isbn]" value="<?php echo $isEdit ? $data['BookInfo']['isbn'] : ""?>">
-					<label for="isbn">ISBN</label>
-					<ul>
-						<?php if (isset($validation['isbn'])) :
+				<!-- ISBN -->
+				<div class="row">
+					<div class="input-field col s3">
+						<input  id="isbn" type="text" class="validate" name="data[BookInfo][isbn]" value="<?php echo $isEdit ? $data['BookInfo']['isbn'] : ""?>">
+						<label for="isbn">ISBN</label>
+						<ul>
+							<?php if (isset($validation['isbn'])) :
+									foreach ($validation['isbn'] as $error) : ?>
+									<li> <?php echo $error?> </li>
+							<?php	endforeach; 
+							endif; ?>
+						</ul>
+					</div>
+					<div class="input-field col s3">
+						<a class="waves-effect waves-light btn" id="search_button"><i class="material-icons left">search</i>button</a>
+					</div>
+				</div>
+				<!-- 冊数 -->
+				<div class="row">
+					<div class="input-field col s6">
+						<input  id="count" type="text" class="validate" name="data[BookInfo][count]" value="<?php echo $isEdit ? $data['BookInfo']['count'] : "1"?>">
+						<label for="count">冊数</label>
+						<ul>
+							<?php if (isset($validation['count'])) :
+									foreach ($validation['count'] as $error) : ?>
+									<li> <?php echo $error?> </li>
+							<?php	endforeach; 
+							endif; ?>
+						</ul>
+					</div>
+				</div>
+				<!-- サムネイル -->
+				<div class="row">
+					<div class="file-field input-field">
+						<div class="btn">
+							<span>サムネイル</span>
+							<input id="image" type="file" name="data[BookInfo][image]">
+						</div>
+						<div class="file-path-wrapper">
+							<input class="file-path validate" type="text" name="">
+						</div>
+						<ul>
+							<?php if (isset($validation['thumbnail_name'])) :
+									foreach ($validation['thumbnail_name'] as $error) : ?>
+									<li> <?php echo $error?> </li>
+							<?php	endforeach; 
+							endif; ?>
+						</ul>
+					</div>
+					<div class="preview" >
+					<?php if ($isEdit) : ?>
+					<img src="/img/book_thumbnail/<?php echo $data['BookInfo']['thumbnail_name']?>" width="150px" class="preview">
+					<?php endif;?>
+					</div>
+				</div>
+				<?php if (isset($isPurchaseRequest) && $isPurchaseRequest === true) : ?>
+					<!-- 購入申請時のコメント -->
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">mode_edit</i>
+							<textarea id="icon_prefix2" class="materialize-textarea" name="data[Review][sentence]"><?php echo ($isEdit) ? $data['Review']['sentence'] : '';?></textarea>
+							<label for="icon_prefix2">Review</label>
+						</div>
+						<ul>
+							<?php if (isset($validation['isbn'])) :
 								foreach ($validation['isbn'] as $error) : ?>
-								<li> <?php echo $error?> </li>
-						<?php	endforeach; 
-						endif; ?>
-					</ul>
-				</div>
-				<div class="input-field col s3">
-					<a class="waves-effect waves-light btn" id="search_button"><i class="material-icons left">search</i>button</a>
-				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s6">
-					<input  id="count" type="text" class="validate" name="data[BookInfo][count]" value="<?php echo $isEdit ? $data['BookInfo']['count'] : "1"?>">
-					<label for="count">冊数</label>
-					<ul>
-						<?php if (isset($validation['count'])) :
-								foreach ($validation['count'] as $error) : ?>
-								<li> <?php echo $error?> </li>
-						<?php	endforeach; 
-						endif; ?>
-					</ul>
-				</div>
-			</div>
-			<div class="row">
-				<div class="file-field input-field">
-					<div class="btn">
-						<span>サムネイル</span>
-						<input id="image" type="file" name="data[BookInfo][image]">
+									<li> <?php echo $error?> </li>
+								<?php	endforeach; 
+								endif; ?>
+						</ul>
 					</div>
-					<div class="file-path-wrapper">
-						<input class="file-path validate" type="text" name="">
-					</div>
-					<ul>
-						<?php if (isset($validation['thumbnail_name'])) :
-								foreach ($validation['thumbnail_name'] as $error) : ?>
-								<li> <?php echo $error?> </li>
-						<?php	endforeach; 
-						endif; ?>
-					</ul>
-				</div>
-				<div class="preview" >
-				<?php if ($isEdit) : ?>
-				<img src="/img/book_thumbnail/<?php echo $data['BookInfo']['thumbnail_name']?>" width="150px" class="preview">
 				<?php endif;?>
-				</div>
-			</div>
 			</form>
+			<!-- 送信ボタン -->
 			<button class="btn waves-effect waves-light" type="submit" form='book'>Submit
 				<i class="material-icons right">send</i>
 			</button>
-		</div>
 </body>
 </html>
