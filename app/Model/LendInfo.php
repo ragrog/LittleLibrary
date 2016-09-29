@@ -86,6 +86,21 @@ class LendInfo extends AppModel {
 		'isbn',
 		'count'
 	);
+	public function getIdByIsbn($isbn) {
+		$data = $this->find('first', array(
+			'conditions' => array(
+				'LendInfo.isbn' => $isbn
+			),
+			'fields' => array(
+				'LendInfo.book_info_id'
+			)
+		));
+		if (empty($data)) {
+			return null;
+		} else {
+			return $data['LendInfo']['book_info_id'];
+		}
+	}
 	// レンタル
 	public function rentalBook($userId, $bookId) {
 		// ユーザ自身がこの本を借りることができ、かつ本自体が貸出可能状態

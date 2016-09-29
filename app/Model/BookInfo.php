@@ -85,6 +85,21 @@ class BookInfo extends AppModel {
 		'isbn',
 		'count'
 	);
+	public function getIdByIsbn($isbn) {
+		$data = $this->find('first', array(
+			'conditions' => array(
+				'BookInfo.isbn' => $isbn
+			),
+			'fields' => array(
+				'BookInfo.id'
+			)
+		));
+		if (empty($data)) {
+			return null;
+		} else {
+			return $data['BookInfo']['id'];
+		}
+	}
 	public function edit($request, $id, $apply = false) {
 		$request = $request['BookInfo'];
 		$saveData = [];

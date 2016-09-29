@@ -48,15 +48,6 @@ class BookController extends AppController {
 		
 		$this->set('data', $data);
 	}
-	public function rentalBook($bookId) {
-		$userId = $this->Auth->user('id');
-		$this->LendInfo->rentalBook($userId, $bookId);
-		$this->redirect(array('action' => 'view', $bookId));
-	}
-	public function returnBook($bookId) {
-		$userId = $this->Auth->user('id');
-		$this->LendInfo->returnBook($userId, $bookId);
-		$this->redirect(array('action' => 'view', $bookId));
-	}
+
 
 }
