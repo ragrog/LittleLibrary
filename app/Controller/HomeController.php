@@ -3,6 +3,9 @@
 App::uses('AppController', 'Controller');
 
 class HomeController extends AppController {
+	public function beforeFilter() {
+		$this->Auth->allow();
+	}
 	public function index()
 	{
 
