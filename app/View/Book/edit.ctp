@@ -72,6 +72,9 @@
 			$(window).keydown(function(e){
 				var id = $(':focus').attr("id");
 			});
+			$('#send_button').on('click', function () {
+				$('#book').submit();
+			});
 		});
 	</script>
 </head>
@@ -195,12 +198,12 @@
 					<div class="row">
 						<div class="input-field col s6">
 							<i class="material-icons prefix">mode_edit</i>
-							<textarea id="icon_prefix2" class="materialize-textarea" name="data[Review][sentence]"><?php echo ($isEdit) ? $data['Review']['sentence'] : '';?></textarea>
+							<textarea id="icon_prefix2" class="materialize-textarea" name="data[PurchaseRequest][comment]"><?php echo ($isEdit) ? $data['PurchaseRequest']['comment'] : '';?></textarea>
 							<label for="icon_prefix2">コメント</label>
 						</div>
 						<ul>
-							<?php if (isset($validation['isbn'])) :
-								foreach ($validation['isbn'] as $error) : ?>
+							<?php if (isset($validation['comment'])) :
+								foreach ($validation['comment'] as $error) : ?>
 									<li> <?php echo $error?> </li>
 								<?php	endforeach; 
 								endif; ?>

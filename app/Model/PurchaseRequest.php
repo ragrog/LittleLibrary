@@ -1,8 +1,9 @@
 <?php
 App::uses('AppModel', 'Model');
+App::uses('BookInfo','Model');
 
 class PurchaseRequest extends AppModel {
-	public $useTable = 'ppurchase_requests';
+	public $useTable = 'purchase_requests';
 	// public $validate = array(
 	
 	// );
@@ -65,4 +66,50 @@ class PurchaseRequest extends AppModel {
 	// 	}
 	// 	return $this->delete($id);
 	// }
+	public $addFieldList = array(
+	);
+	public function edit($request, $purchaseId, $userId) {
+		
+		echo '<pre>';
+		var_dump($request);
+		echo '</pre>';
+		$saveData = [];
+
+		// コメントカラムがない場合は、失敗
+		if (isset($request['PurchaseRequest']['comment']))
+		{
+			$saveData['comment'] = $request['PurchaseRequest']['comment'];
+		} else {
+			return false;
+		}
+
+		$dataSource = $this->getDataSource();
+		$dataSource->begin();
+		// Idが存在しなければ新規作成。あれば編集
+		if ($this->exists($purchaseId)) {
+			// idをセット
+			$saveData['id'] = $purchaseId;
+		} else {
+			$book_info = new BookInfo();
+			// 本の登録に成功しなければ、エラー
+			if (!$book_info->edit($request, null, true)) {
+				$dataSource->rollback();
+				return false;
+			} else {
+				$bookId = $book_info->getLastInsertID();
+			}
+		}
+		$saveData += array('user_id' => $userId, 'book_info_id' => $bookId);
+
+
+		if ($this->save($saveData)) {
+			$dataSource->commit();
+			return true;
+		} else {
+			$dataSource->roolback();
+			return false;
+		}
+		// requestを整形
+		// 新規作成ならば作り直す
+	}
 }

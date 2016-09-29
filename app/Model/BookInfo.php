@@ -117,11 +117,13 @@ class BookInfo extends AppModel {
 		if ($apply === false) {
 			$saveData['is_purchased'] = false;
 			$dataSource = $this->getDataSource();
+			$dataSource->begin();
+
 		} else {
-			$savgData['is_purchased'] = true;
+			$saveData['is_purchased'] = true;
 		}
 		// トランザクションの開始
-		$dataSource->begin();
+		
 		if ($this->save($saveData)) {
 			if (!empty($request['image']['tmp_name'])) {
 				if (move_uploaded_file($request['image']['tmp_name'], IMAGES . DS . 'book_thumbnail' . DS .$saveData['thumbnail_name']))
@@ -138,10 +140,14 @@ class BookInfo extends AppModel {
 			$saveSuccess = false;
 		}
 		// セーブに成功したらコミット、失敗したらロールバック
-		if ($saveSuccess === true && $apply === false) {
-		} else {
-			$dataSource->rollback();
+		if ($apply === false) {
+			if ($saveSuccess === true) {
+				$dataSource->commit();
+			} else {
+				$dataSource->rollback();
+			}
 		}
+		return $saveSuccess;
 
 
 	}
