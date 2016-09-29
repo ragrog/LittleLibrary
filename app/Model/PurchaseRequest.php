@@ -89,6 +89,7 @@ class PurchaseRequest extends AppModel {
 		if ($this->exists($purchaseId)) {
 			// idをセット
 			$saveData['id'] = $purchaseId;
+			$bookId = $this->getBookId($purchaseId);
 		} else {
 			$book_info = new BookInfo();
 			// 本の登録に成功しなければ、エラー
@@ -111,5 +112,20 @@ class PurchaseRequest extends AppModel {
 		}
 		// requestを整形
 		// 新規作成ならば作り直す
+	}
+	public function getBookId($purchaseId) {
+		$data = $this->find('first', array(
+			'conditions' => array(
+				'PurchaseRequest.id' => $purchaseId
+			),
+			'fields' => array(
+				'PurchaseRequest.book_info_id'
+			)
+		));
+		if (empty($data)) {
+			return null;
+		} else  {
+			return $data['PurchaseRequest']['book_info_id'];
+		}
 	}
 }

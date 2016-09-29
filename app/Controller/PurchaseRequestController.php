@@ -12,7 +12,7 @@ class PurchaseRequestController extends AppController {
 		$userId = $this->Auth->user('id');
 		// ポストされたときの編集処理
 		if ($this->request->is('post')) {
-			$this->PurchaseRequest->edit($this->request->data, $purchaseId);
+			$this->PurchaseRequest->edit($this->request->data, $purchaseId, $userId);
 		}
 		// 保存したデータを再度取得して渡す
 		$data = $this->PurchaseRequest->findById($purchaseId);
