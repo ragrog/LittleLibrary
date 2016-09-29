@@ -64,6 +64,14 @@
 
 					reader.readAsDataURL(file);
 				});
+			$('#isbn').on('keydown',function(e) {
+					if(e.keyCode === 13) {
+						$('#search_button').trigger("click");
+					}
+				});
+			$(window).keydown(function(e){
+				var id = $(':focus').attr("id");
+			});
 		});
 	</script>
 </head>
@@ -141,7 +149,7 @@
 						</ul>
 					</div>
 					<div class="input-field col s3">
-						<a class="waves-effect waves-light btn" id="search_button"><i class="material-icons left">search</i>button</a>
+						<a class="waves-effect waves-light btn" id="search_button"><i class="material-icons left">search</i>検索</a>
 					</div>
 				</div>
 				<!-- 冊数 -->
@@ -188,7 +196,7 @@
 						<div class="input-field col s6">
 							<i class="material-icons prefix">mode_edit</i>
 							<textarea id="icon_prefix2" class="materialize-textarea" name="data[Review][sentence]"><?php echo ($isEdit) ? $data['Review']['sentence'] : '';?></textarea>
-							<label for="icon_prefix2">Review</label>
+							<label for="icon_prefix2">コメント</label>
 						</div>
 						<ul>
 							<?php if (isset($validation['isbn'])) :
@@ -201,8 +209,6 @@
 				<?php endif;?>
 			</form>
 			<!-- 送信ボタン -->
-			<button class="btn waves-effect waves-light" type="submit" form='book'>Submit
-				<i class="material-icons right">send</i>
-			</button>
+			<a class="waves-effect waves-light btn" id="send_button"><i class="material-icons left">send</i>button</a>
 </body>
 </html>
