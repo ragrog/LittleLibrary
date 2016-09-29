@@ -85,7 +85,7 @@ class BookInfo extends AppModel {
 		'isbn',
 		'count'
 	);
-	public function edit($request, $id) {
+	public function edit($request, $id, $apply = false) {
 		$request = $request['BookInfo'];
 		$saveData = [];
 		// filedListで指定されたアイテムだけを取り出す。
@@ -113,9 +113,13 @@ class BookInfo extends AppModel {
 			preg_match('/^.+\.(.+)$/', $request['image']['name'], $extension);
 			$saveData['thumbnail_name'] = md5(microtime() . $request['image']['name']) . '.' .$extension[1];
 		}
-
 		// 保存準備
-		$dataSource = $this->getDataSource();
+		if ($apply === false) {
+			$saveData['is_purchased'] = false;
+			$dataSource = $this->getDataSource();
+		} else {
+			$savgData['is_purchased'] = true;
+		}
 		// トランザクションの開始
 		$dataSource->begin();
 		if ($this->save($saveData)) {
@@ -134,8 +138,7 @@ class BookInfo extends AppModel {
 			$saveSuccess = false;
 		}
 		// セーブに成功したらコミット、失敗したらロールバック
-		if ($saveSuccess === true) {
-			$dataSource->commit();
+		if ($saveSuccess === true && $apply === false) {
 		} else {
 			$dataSource->rollback();
 		}
