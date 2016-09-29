@@ -3,6 +3,7 @@
 <head>
 
 	<title>
+	Little Library
 	</title>
 	<script type="text/javascript" src="/js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="/js/materialize.min.js"></script>
@@ -21,7 +22,7 @@
 		<?php echo $this->element('HomeCard', array(
 			'symbol'=>'clear_all',
 			'action' => '本を返す',
-			'link' => '/RetrunBook'
+			'link' => '/ReturnBook'
 			));
 		?>
 		<?php echo $this->element('HomeCard', array(
