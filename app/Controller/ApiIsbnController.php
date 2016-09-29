@@ -4,6 +4,7 @@ App::uses('AppController', 'Controller');
 
 class ApiIsbnController extends AppController {
 	public $components = array('RequestHandler');
+	public $uses = array('LendInfo', 'BookInfo');
 	public function index()
 	{
 		$this->viewClass = 'Json';
@@ -57,6 +58,23 @@ class ApiIsbnController extends AppController {
 			'_serialize' => array('result')
 		));
 	}
+	public function view($isbn)
+	{
+		$this->viewClass = 'Json';
+		$bookId = $this->BookInfo->getIdByIsbn($isbn);
+		// isbnから本のIDが取得できなければ失敗
+		if (empty($bookId)) {
+			$result['status'] = 'failed';
+		} else {
+			$result = $this->BookInfo->findById($bookId)['BookInfo'];
+			$result['status'] = 'success';
+		}
+		$this->set(array(
+			'result' => $result,
+			'_serialize' => array('result')
+		));
+	}
+
 
 
 	// 渡したtextの中から指定した属性の要素を取得。失敗したらnullを返す
