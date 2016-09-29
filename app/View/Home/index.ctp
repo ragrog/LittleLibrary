@@ -11,12 +11,46 @@
 </head>
 <body>
 	<h1>Little Library</h1>
-	<ul>
-		<li><a href="">マイページへ</a></li><!-- ログイン -->
-		<li><a href="">借りる</a></li>
-		<li><a href="">返す</a></li>
-		<li><a href="">評価を書く</a></li>
-		<li><a href="">探す</a></li>
-	</ul>
+	<div class="row">
+		<?php echo $this->element('HomeCard', array(
+			'symbol'=>'library_books',
+			'action' => '本を借りる',
+			'link' => '/RentalBook'
+			));
+		?>
+		<?php echo $this->element('HomeCard', array(
+			'symbol'=>'clear_all',
+			'action' => '本を返す',
+			'link' => '/RetrunBook'
+			));
+		?>
+		<?php echo $this->element('HomeCard', array(
+			'symbol'=>'search',
+			'action' => '本を探す',
+			'link' => '/Book'
+			));
+		?>
+	</div>
+		<div class="row">
+		<?php echo $this->element('HomeCard', array(
+			'symbol'=>'shopping_cart',
+			'action' => '購入申請',
+			'link' => '/PurchaseRequest'
+			));
+		?>
+		<?php echo $this->element('HomeCard', array(
+			'symbol'=>'contacts',
+			'action' => 'レビュー 一覧',
+			'link' => '/Review'	
+			));
+		?>
+		<?php echo $this->element('HomeCard', array(
+			'symbol'=>'perm_identity',
+			'action' => 'マイページ',
+			'link' => '/MyPage'
+			));
+		?>
+	</div>
+	</div>
 </body>
 </html>
