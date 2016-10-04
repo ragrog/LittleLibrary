@@ -6,7 +6,8 @@ class PurchaseRequestController extends AppController {
 	public $uses = array('PurchaseRequest', 'BookInfo');
 	public function index()
 	{
-
+		$data = $this->PurchaseRequest->getPurchaseRequest();
+		$this->set('data', $data);
 	}
 	public function edit($purchaseId){
 		$userId = $this->Auth->user('id');
