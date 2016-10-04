@@ -79,6 +79,7 @@
 	</script>
 </head>
 <body>
+	<?php echo $this->element('Header'); ?>
 	<h2><?php echo  ((isset($isPurchaseRequest) && $isPurchaseRequest === true) ? '購入申請を' : '本を')
 						. ($isEdit ? "編集" : "追加") ;?></h2>
 			<form class="col s12" method="post" name="book" id='book' enctype="multipart/form-data">
@@ -212,6 +213,6 @@
 				<?php endif;?>
 			</form>
 			<!-- 送信ボタン -->
-			<a class="waves-effect waves-light btn" id="send_button"><i class="material-icons left">send</i>button</a>
+			<a class="waves-effect waves-light btn" id="send_button"><i class="material-icons left">send</i>送信	</a>
 </body>
 </html>
