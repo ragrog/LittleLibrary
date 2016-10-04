@@ -5,13 +5,33 @@
 	<title>
 	Little Library
 	</title>
-	<script type="text/javascript" src="/js/jquery-3.1.0.min.js"></script>
-    <script type="text/javascript" src="/js/materialize.min.js"></script>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>    <script type="text/javascript" src="/js/materialize.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/materialize.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/default.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" >
+    $(document).ready(function(){
+      $('.parallax').parallax();
+    });
+	</script>
 </head>
 <body>
-	<h1>Little Library</h1>
+
+
+<?php echo $this->element('Header'); ?>
+
+  <div class="parallax-container">
+    <div class="parallax"><img src="/img/bookshelf.jpg"></div>
+  </div>
+  <div class="section white">
+    <div class="container">
+      <h2 class="header">Little Library</h2>
+      <p class="grey-text text-darken-3 lighten-3">
+        このサービスは会社や研究室にある多くの本を管理するために作りました。<br>
+        本を読んで、本を紹介して、本を追加していく。<br>
+        みんなで育てていく、そんな小さな図書館を作るサービスです。<br>
+      </p>
+
 	<div class="row">
 		<?php echo $this->element('HomeCard', array(
 			'symbol'=>'library_books',
@@ -32,16 +52,16 @@
 			));
 		?>
 	</div>
-		<div class="row">
+	<div class="row">
 		<?php echo $this->element('HomeCard', array(
 			'symbol'=>'shopping_cart',
-			'action' => '購入申請',
+			'action' => '本を買って貰う',
 			'link' => '/PurchaseRequest'
 			));
 		?>
 		<?php echo $this->element('HomeCard', array(
-			'symbol'=>'contacts',
-			'action' => 'レビュー 一覧',
+			'symbol'=>'comment',
+			'action' => 'レビュー',
 			'link' => '/Review'	
 			));
 		?>
@@ -51,7 +71,11 @@
 			'link' => '/MyPage'
 			));
 		?>
-	</div>
-	</div>
+		</div>
+     </div>
+  </div>
+  <div class="parallax-container">
+    <div class="parallax"><img src="/img/bookshelf.jpg"></div>
+  </div>
 </body>
 </html>
