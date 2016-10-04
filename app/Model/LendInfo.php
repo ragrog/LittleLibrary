@@ -86,21 +86,6 @@ class LendInfo extends AppModel {
 		'isbn',
 		'count'
 	);
-	public function getIdByIsbn($isbn) {
-		$data = $this->find('first', array(
-			'conditions' => array(
-				'LendInfo.isbn' => $isbn
-			),
-			'fields' => array(
-				'LendInfo.book_info_id'
-			)
-		));
-		if (empty($data)) {
-			return null;
-		} else {
-			return $data['LendInfo']['book_info_id'];
-		}
-	}
 	// レンタル
 	public function rentalBook($userId, $bookId) {
 		// ユーザ自身がこの本を借りることができ、かつ本自体が貸出可能状態
@@ -223,6 +208,27 @@ class LendInfo extends AppModel {
 		} else {
 			return false;
 		}
+	}
+	// 現在借りている貸出情報を取得
+	public function getNowRentalInfo($userId) {
+		$lendInfo =  $this->find('all', array(
+			'conditions' => array(
+				'LendInfo.user_id' => $userId,
+				'LendInfo.is_revocation' => true
+			)
+		));
+		$result = [];
+		$book_info = new BookInfo();
+		foreach ($lendInfo as $key => $value) {
+			$data = $value;
+			$book = $book_info->findById($value['LendInfo']['book_info_id']);
+			$data += $book;
+			$result[$key] = $data;
+		}
+		echo '<pre>';
+		var_dump($result);
+		echo '</pre>';
+		return $result;
 	}
 
 }
