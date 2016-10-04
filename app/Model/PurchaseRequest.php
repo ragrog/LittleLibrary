@@ -4,6 +4,16 @@ App::uses('BookInfo','Model');
 
 class PurchaseRequest extends AppModel {
 	public $useTable = 'purchase_requests';
+	public $belongsTo = array(
+		'BookInfo' => array(
+			'className' => 'BookInfo',
+			'foreignKey' => 'book_info_id'
+		),
+		'User' => array(
+			'className' => 'User',
+			'foreignKey' => 'user_id'
+		)
+	);
 	// public $validate = array(
 	
 	// );
@@ -127,5 +137,12 @@ class PurchaseRequest extends AppModel {
 		} else  {
 			return $data['PurchaseRequest']['book_info_id'];
 		}
+	}
+	public function getPurchaseRequest() {
+		return $this->find('all', array(
+			'conditions' => array(
+				'purchase_date' => null
+			)
+		));
 	}
 }
