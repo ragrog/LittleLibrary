@@ -1,19 +1,12 @@
 		<div class="col s12 m4">
-			<div class="card medium">
+			<div class="card medium hoverable">
 				<div class="card-image waves-effect waves-block waves-light">
 					<img class="activator" src="/img/book_thumbnail/<?php echo $data['BookInfo']['thumbnail_name']?>">
 				</div>
 				<div class="card-content">
-					<span class="card-title activator grey-text text-darken-4">
+					<span class="card-title activator grey-text text-darken-4 truncate">
 					<?php 
-						$strLen = mb_strlen($data['BookInfo']['title']);
-						$title = $data['BookInfo']['title'];
-						if ($strLen > 15) {
-							$title = mb_substr($title, 0, 15) . "...";
-						} else if($strLen < 5) {
-							$title . '</br>';
-						}
-							echo $title;
+						echo $data['BookInfo']['title'];
 					?>
 						<i class="material-icons right">more_vert</i>
 					</span>
