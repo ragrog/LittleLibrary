@@ -1,5 +1,5 @@
 <?php 
-$this->assign('title', 'タイトルです');
+$this->assign('title', 'Little Library');
 ?>
 <?php 
 $this->start('script');
