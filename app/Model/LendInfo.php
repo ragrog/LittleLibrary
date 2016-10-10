@@ -225,9 +225,6 @@ class LendInfo extends AppModel {
 			$data += $book;
 			$result[$key] = $data;
 		}
-		echo '<pre>';
-		var_dump($result);
-		echo '</pre>';
 		return $result;
 	}
 
