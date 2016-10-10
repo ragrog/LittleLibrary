@@ -11,10 +11,9 @@
 	<link rel="stylesheet" type="text/css" href="/css/materialize.min.css">
 	<link rel="stylesheet" type="text/css" href="/css/default.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	
-	<script type="text/javascript">
-		<?php echo $this->fetch('script') ?>
-	</script>
+
+	<?php echo $this->fetch('script') ?>
+
 	
 </head>
 <body>

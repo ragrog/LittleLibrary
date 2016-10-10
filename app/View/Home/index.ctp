@@ -4,9 +4,12 @@ $this->assign('title', 'Little Library');
 <?php 
 $this->start('script');
 ?>
-   $(document).ready(function(){
-      $('.parallax').parallax();
-    });
+	<script type="text/javascript">
+		$(document).ready(function() {
+			Materialize.updateTextFields();
+			$('select').material_select()
+		});
+	</script>
 <?php 
 $this->end();
 ?>
@@ -15,7 +18,6 @@ $this->end();
 <div class="parallax-container">
 	<div class="parallax"><img src="/img/bookshelf.jpg"></div>
 </div>
-
 <!-- content -->
 <div class="section white">
 	<div class="container">
