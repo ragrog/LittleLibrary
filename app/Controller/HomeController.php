@@ -8,6 +8,8 @@ class HomeController extends AppController {
 	}
 	public function index()
 	{
+		// $this->layout = "sample";
+		// var_dump($this->layout);
 
 	}
 	public function edit($id = null){

@@ -51,6 +51,6 @@ class AppController extends Controller {
 	);
 	public function beforeRender()
 	{
-		   $this->autoLayout = false;  // レイアウトをOFFにする
+	//	   $this->autoLayout = false;  // レイアウトをOFFにする
 	}
 }
