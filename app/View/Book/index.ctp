@@ -10,15 +10,16 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-	
+	<?php echo $this->element('Header'); ?>
 	<h1>本一覧</h1>
 		<?php 
-			$rowMax = (int)(count($data) / 3);
+			$total = count($data);
+			$rowMax = (int)($total / 3) + 1;
 			for ($rowNum =  0; $rowNum < $rowMax; $rowNum ++) :
 		?>
 		<div class="row">
 				<?php
-				for ($columnNum = 0; $columnNum < 3; $columnNum ++) {
+				for ($columnNum = 0; $columnNum < 3 && $rowNum * 3 + $columnNum < $total; $columnNum ++) {
 					$index = $rowNum * 3 + $columnNum;
 					  echo $this->element('BookCard', array('data' => $data[(int)($index)]));
 				}
